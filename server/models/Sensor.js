@@ -6,4 +6,4 @@ const SensorSchema = new mongoose.Schema({
     userID: {type: mongoose.Schema.Types.ObjectId, ref: "User"}    
 });
 
-module.exports = mongoose.model("Sensor", SensorSchema);
+module.exports = mongoose.model("Sensor", SensorSchema, 'Sensors');

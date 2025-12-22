@@ -7,4 +7,4 @@ const MeasuresSchema = new mongoose.Schema({
     value: Number 
 });
 
-module.exports = mongoose.model("Measures", MeasuresSchema);
+module.exports = mongoose.model("Measures", MeasuresSchema, 'Measures');

@@ -20,4 +20,6 @@ app.get("/", (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
+const userRoutes = require("./routes/userRoutes");
+app.use("/api/users", userRoutes);
 app.listen(PORT, () => console.log(`Serveur lancé sur port ${PORT}`));
