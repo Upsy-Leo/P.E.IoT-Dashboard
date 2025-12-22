@@ -26,11 +26,13 @@ const PORT = process.env.PORT || 3000;
 const userRoutes = require("./routes/userRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const todoRoutes = require("./routes/todoRoutes");
+const measureRoutes = require("./routes/measureRoutes");
 
 // Liens
 app.use("/api/users", userRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/todos", todoRoutes);
+app.use("/api/measures", measureRoutes);
 
 // Lancement du serveur
 app.listen(PORT, () => console.log(`Serveur lancé sur port ${PORT}`));
