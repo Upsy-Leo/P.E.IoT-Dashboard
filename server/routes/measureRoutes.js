@@ -88,4 +88,27 @@ router.get('/stats', async (req, res) => {
     }
 });
 
+router.get('/detail', async (req, res) => {
+    try {
+        const { date, type } = req.query;
+        let query = { type: type };
+
+        const startOfDay = new Date(date);
+        const endOfDay = new Date(date);
+        endOfDay.setDate(endOfDay.getDate() + 1);
+
+        query.creationDate = { $gte: startOfDay, $lt: endOfDay };
+
+        const measures = await Measure.find(query)
+            .populate({
+                path: 'sensorID',
+                populate: { path: 'userID' }
+            });
+
+        res.json(measures);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 module.exports = router;

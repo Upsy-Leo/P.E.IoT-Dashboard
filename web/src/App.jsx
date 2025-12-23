@@ -132,7 +132,7 @@ function App() {
 
           {/* Widget 5: Informations (Sensor Info) */}
           <SensorInfo
-            alert={selectedAlert}
+            data={selectedAlert}
             onClose={() => setSelectedAlert(null)}
             className="col-span-5"
           />
