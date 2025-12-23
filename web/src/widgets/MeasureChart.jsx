@@ -5,13 +5,14 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 const MeasureChart = ({ type: initialType = "temperature", filter }) => {
     const [data, setData] = useState([]);
     const [currentType, setCurrentType] = useState(initialType);
+    const [period, setPeriod] = useState('all');
 
     useEffect(() => {
         // Construction de l'URL sécurisée
         const scope = filter?.scope || 'worldwide';
         const value = filter?.value || '';
 
-        let url = `http://localhost:3000/api/measures/stats?type=${currentType}`;
+        let url = `http://localhost:3000/api/measures/stats?type=${currentType}&period=${period}`;
 
         if (scope === 'country' && value) {
             url += `&location=${value}`;
@@ -22,25 +23,38 @@ const MeasureChart = ({ type: initialType = "temperature", filter }) => {
         axios.get(url)
             .then(res => setData(res.data))
             .catch(err => console.error("Erreur Chart API:", err));
-    }, [currentType, filter]);
+    }, [currentType, filter, period]);
 
     const toggleType = (t) => setCurrentType(t);
 
     return (
         // On fixe une hauteur h-[250px] pour éviter l'erreur width(-1) de Recharts
         <div className="w-full h-full flex flex-col">
-            <div className="flex justify-end gap-2 mb-2 px-2">
-                {['temperature', 'humidity', 'airPollution'].map(t => (
-                    <button
-                        key={t}
-                        onClick={() => toggleType(t)}
-                        className={`text-[9px] px-2 py-1 rounded-lg uppercase font-bold tracking-wider transition-all ${currentType === t ? 'bg-accent-green text-black' : 'bg-gray-800 text-gray-400 hover:bg-gray-700'}`}
-                    >
-                        {t === 'airPollution' ? 'Pollution' : t}
-                    </button>
-                ))}
+            <div className="flex justify-between mb-2 px-2 items-center">
+                <div className="flex gap-1">
+                    {['week', 'month', '6months', 'year', 'all'].map(p => (
+                        <button
+                            key={p}
+                            onClick={() => setPeriod(p)}
+                            className={`text-[9px] px-2 py-1 rounded-md font-bold transition-all ${period === p ? 'bg-gray-200 text-black' : 'bg-transparent text-gray-500 hover:text-white'}`}
+                        >
+                            {p === 'week' ? '1W' : p === 'month' ? '1M' : p === '6months' ? '6M' : p === 'year' ? '1Y' : 'ALL'}
+                        </button>
+                    ))}
+                </div>
+                <div className="flex gap-2">
+                    {['temperature', 'humidity', 'airPollution'].map(t => (
+                        <button
+                            key={t}
+                            onClick={() => toggleType(t)}
+                            className={`text-[9px] px-2 py-1 rounded-lg uppercase font-bold tracking-wider transition-all ${currentType === t ? 'bg-accent-green text-black' : 'bg-gray-800 text-gray-400 hover:bg-gray-700'}`}
+                        >
+                            {t === 'airPollution' ? 'Pollution' : t}
+                        </button>
+                    ))}
+                </div>
             </div>
-            <div className="flex-1 w-full min-h-[200px]">
+            <div className="w-full h-[300px]">
                 <ResponsiveContainer width="100%" height="100%">
                     <AreaChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                         <defs>

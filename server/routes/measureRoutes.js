@@ -5,16 +5,36 @@ const mongoose = require('mongoose');
 
 router.get('/stats', async (req, res) => {
     try {
-        const { type, location, userId } = req.query;
+        const { type, location, userId, period } = req.query;
 
         if (!type) {
             return res.status(400).json({ message: "Le paramètre 'type' est requis (ex: airPollution)." });
         }
 
         let pipeline = [];
+        let matchStage = { type: type };
+        let dateFilter = null;
+
+        // Filtrage par période
+        if (period && period !== 'all') {
+            // "Smart Date": On se base sur la date la plus récente en base pour que la démo soit toujours vivante
+            const latestMeasure = await Measure.findOne({ type: type }).sort({ creationDate: -1 });
+            const now = latestMeasure ? new Date(latestMeasure.creationDate) : new Date();
+
+            let startDate = new Date(now);
+
+            switch (period) {
+                case 'week': startDate.setDate(now.getDate() - 7); break;
+                case 'month': startDate.setMonth(now.getMonth() - 1); break;
+                case '6months': startDate.setMonth(now.getMonth() - 6); break;
+                case 'year': startDate.setFullYear(now.getFullYear() - 1); break;
+            }
+            // On prend tout ce qui est entre startDate et maintenant (mocké)
+            dateFilter = { $gte: startDate, $lte: now };
+        }
 
         // on filtre par type de mesure immédiatement 
-        pipeline.push({ $match: { type: type } });
+        pipeline.push({ $match: matchStage });
 
         // on joint avec Sensors pour faire le lien avec l'utilisateur
         pipeline.push({
@@ -43,6 +63,11 @@ router.get('/stats', async (req, res) => {
                 convertedDate: { $toDate: "$creationDate" }
             }
         });
+
+        // Filtrage temporel APRES conversion pour gérer le cas où en base c'est du String
+        if (dateFilter) {
+            pipeline.push({ $match: { convertedDate: dateFilter } });
+        }
 
         // on group par jour et calcul de la moyenne pour Recharts
         pipeline.push({
