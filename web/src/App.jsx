@@ -4,6 +4,7 @@ import MeasureChart from './widgets/MeasureChart';
 import DigitalPlant from './widgets/DigitalPlant';
 import AnomalyFeed from './widgets/AnomalyFeed';
 import SensorInfo from './widgets/SensorInfo';
+import MiniTodo from './widgets/MiniTodo';
 
 
 function App() {
@@ -138,12 +139,7 @@ function App() {
           />
 
           {/* Widget 6: Todo */}
-          <div className="col-span-3 bg-card-bg rounded-3xl p-5 border border-gray-800/40 shadow-xl flex flex-col">
-            <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-4 shrink-0">Mini To-Do Ops</p>
-            <div className="flex-1 border-2 border-dashed border-gray-800/50 rounded-2xl text-gray-700 text-[10px] flex items-center justify-center">
-              Todo
-            </div>
-          </div>
+          <MiniTodo className="col-span-3" />
 
         </div>
       </main>
