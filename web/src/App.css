@@ -1,3 +1,16 @@
-#root, html, body {
-  margin: 0 auto;
+@import "tailwindcss";
+
+@theme {
+  --color-dark-bg: #0b0e11;
+  --color-card-bg: #15191e;
+  --color-accent-green: #2ecc71;
+  --radius-3xl: 24px;
+}
+
+/* On bloque le scroll sur le body */
+body {
+  background-color: var(--color-dark-bg);
+  margin: 0;
+  overflow: hidden; /* Empêche le scroll global */
+  height: 100vh;
 }
