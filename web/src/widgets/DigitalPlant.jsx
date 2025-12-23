@@ -14,7 +14,7 @@ const DigitalPlant = ({ className = "" }) => {
         };
 
         fetchXP();
-        const interval = setInterval(fetchXP, 10000); 
+        const interval = setInterval(fetchXP, 10000);
         return () => clearInterval(interval);
     }, []);
 
@@ -44,15 +44,15 @@ const DigitalPlant = ({ className = "" }) => {
 
             {/* Cercle principal */}
             <div className="relative w-28 h-28 flex items-center justify-center my-1">
-                
+
                 <div className="absolute w-full h-full bg-black/40 rounded-full border border-gray-800/50 shadow-inner"></div>
 
-                
+
                 <div className="z-10 animate-bounce-slow transform transition-all duration-500">
                     {renderPlant()}
                 </div>
 
-                
+
                 <div className="absolute top-2 right-2 w-7 h-7 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center shadow-lg z-20">
                     <span className="text-[9px] font-bold text-accent-green">L{level}</span>
                 </div>

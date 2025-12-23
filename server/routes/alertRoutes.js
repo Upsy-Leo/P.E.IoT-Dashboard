@@ -26,10 +26,15 @@ router.post('/:id/resolve', async (req, res) => {
         if (alert) {
             //ajouter logique pour augmenter xp
             const User = require("../models/User");
-            await User.findOneAndUpdate(
-                { username: 'Sylvie Martin' },
-                { $inc: { xp: 250 } }
-            );
+            const user = await User.findOne({ username: 'Sylvie Martin' });
+            if (user) {
+                user.xp += 250;
+                if (user.xp >= 1000) {
+                    user.level += 1;
+                    user.xp = user.xp % 1000;
+                }
+                await user.save();
+            }
         }
 
         res.json(alert);
