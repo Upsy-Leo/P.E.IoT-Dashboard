@@ -27,6 +27,13 @@ const MeasureChart = ({ type: initialType = "temperature", filter }) => {
 
     const toggleType = (t) => setCurrentType(t);
 
+    const colorMap = {
+        temperature: '#ef4444', // Red-500
+        humidity: '#3b82f6',     // Blue-500
+        airPollution: '#22c55e'  // Green-500
+    };
+    const activeColor = colorMap[currentType] || '#2ecc71';
+
     return (
         // On fixe une hauteur h-[250px] pour éviter l'erreur width(-1) de Recharts
         <div className="w-full h-full flex flex-col">
@@ -47,7 +54,8 @@ const MeasureChart = ({ type: initialType = "temperature", filter }) => {
                         <button
                             key={t}
                             onClick={() => toggleType(t)}
-                            className={`text-[9px] px-2 py-1 rounded-lg uppercase font-bold tracking-wider transition-all ${currentType === t ? 'bg-accent-green text-black' : 'bg-gray-800 text-gray-400 hover:bg-gray-700'}`}
+                            className={`text-[9px] px-2 py-1 rounded-lg uppercase font-bold tracking-wider transition-all ${currentType === t ? 'text-black' : 'bg-gray-800 text-gray-400 hover:bg-gray-700'}`}
+                            style={currentType === t ? { backgroundColor: activeColor } : {}}
                         >
                             {t === 'airPollution' ? 'Pollution' : t}
                         </button>
@@ -59,8 +67,8 @@ const MeasureChart = ({ type: initialType = "temperature", filter }) => {
                     <AreaChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                         <defs>
                             <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="#2ecc71" stopOpacity={0.3} />
-                                <stop offset="95%" stopColor="#2ecc71" stopOpacity={0} />
+                                <stop offset="5%" stopColor={activeColor} stopOpacity={0.3} />
+                                <stop offset="95%" stopColor={activeColor} stopOpacity={0} />
                             </linearGradient>
                         </defs>
 
@@ -78,13 +86,13 @@ const MeasureChart = ({ type: initialType = "temperature", filter }) => {
 
                         <Tooltip
                             contentStyle={{ backgroundColor: '#15191e', border: '1px solid #374151', borderRadius: '12px' }}
-                            itemStyle={{ color: '#2ecc71' }}
+                            itemStyle={{ color: activeColor }}
                         />
 
                         <Area
                             type="monotone"
                             dataKey="averageValue"
-                            stroke="#2ecc71"
+                            stroke={activeColor}
                             strokeWidth={3}
                             fillOpacity={1}
                             fill="url(#colorValue)"
