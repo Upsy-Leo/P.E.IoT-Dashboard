@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const AnomalyFeed = ({ filter }) => {
+const AnomalyFeed = ({ filter, onAlertSelect, selectedAlertId }) => {
     const [alerts, setAlerts] = useState([]);
 
     useEffect(() => {
@@ -40,22 +40,33 @@ const AnomalyFeed = ({ filter }) => {
                     <p className="text-[10px] uppercase mt-2">System Secure</p>
                 </div>
             ) : (
-                alerts.map((alert) => (
-                    <div key={alert._id} className="bg-white/5 border-l-4 border-red-500 p-3 rounded-r-xl hover:bg-white/10 transition-colors">
-                        <div className="flex justify-between items-start mb-1">
-                            <h4 className="font-bold text-[11px] text-gray-200">
-                                {alert.location || 'Unknown Device'}
-                            </h4>
-                            <span className="text-[9px] px-1.5 py-0.5 bg-red-500/20 text-red-500 rounded font-bold uppercase">
-                                {alert.type || 'Alert'}
-                            </span>
+                alerts.map((alert) => {
+                    const isSelected = alert._id === selectedAlertId;
+                    return (
+                        <div
+                            key={alert._id}
+                            onClick={() => onAlertSelect(alert)}
+                            className={`cursor-pointer border-l-4 p-3 rounded-r-xl transition-all duration-300 ${isSelected
+                                    ? 'bg-white/15 border-accent-green shadow-lg scale-[1.02]'
+                                    : 'bg-white/5 border-red-500 hover:bg-white/10'
+                                }`}
+                        >
+                            <div className="flex justify-between items-start mb-1 text-gray-400">
+                                <h4 className={`font-bold text-[11px] ${isSelected ? 'text-accent-green' : 'text-gray-200'}`}>
+                                    {alert.location || 'Unknown Device'}
+                                </h4>
+                                <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold uppercase ${isSelected ? 'bg-accent-green/20 text-accent-green' : 'bg-red-500/20 text-red-500'
+                                    }`}>
+                                    {alert.type || 'Alert'}
+                                </span>
+                            </div>
+                            <div className="flex justify-between items-center mt-3 text-[9px] text-gray-500 font-mono">
+                                <span>{new Date(alert.createdAt).toLocaleTimeString()}</span>
+                                <span>VAL: {alert.value}</span>
+                            </div>
                         </div>
-                        <div className="flex justify-between items-center mt-3 text-[9px] text-gray-500 font-mono">
-                            <span>{new Date(alert.createdAt).toLocaleTimeString()}</span>
-                            <span>VAL: {alert.value}</span>
-                        </div>
-                    </div>
-                ))
+                    );
+                })
             )}
         </div>
     );

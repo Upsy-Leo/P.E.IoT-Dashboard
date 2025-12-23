@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Alert = require("../models/Alert");
 const Measure = require("../models/Measures");
+const Sensor = require("../models/Sensor");
+const User = require("../models/User");
 
 // Récuperation des alertes non résolues
 router.get('/', async (req, res) => {
@@ -11,7 +13,17 @@ router.get('/', async (req, res) => {
         if (location && location !== 'worldwide') {
             query.location = location;
         }
-        const alerts = await Alert.find(query).sort('-createdAt');
+        const alerts = await Alert.find(query)
+            .populate({
+                path: 'measureID',
+                populate: {
+                    path: 'sensorID',
+                    populate: {
+                        path: 'userID'
+                    }
+                }
+            })
+            .sort('-createdAt');
         res.json(alerts);
     } catch (err) {
         res.status(500).json({ message: err.message });

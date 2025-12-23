@@ -3,11 +3,13 @@ import axios from 'axios';
 import MeasureChart from './widgets/MeasureChart';
 import DigitalPlant from './widgets/DigitalPlant';
 import AnomalyFeed from './widgets/AnomalyFeed';
+import SensorInfo from './widgets/SensorInfo';
 
 
 function App() {
   const [filter, setFilter] = useState({ scope: 'Worldwide', value: '' });
   const [options, setOptions] = useState([]);
+  const [selectedAlert, setSelectedAlert] = useState(null);
 
   useEffect(() => {
     if (filter.scope === 'worldwide') {
@@ -120,17 +122,20 @@ function App() {
           <div className="col-span-4 bg-card-bg rounded-3xl p-5 border border-gray-800/40 shadow-xl flex flex-col overflow-hidden">
             <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-4 shrink-0">Anomaly Feed</p>
             <div className="flex-1 overflow-hidden">
-              <AnomalyFeed filter={filter} />
+              <AnomalyFeed
+                filter={filter}
+                onAlertSelect={setSelectedAlert}
+                selectedAlertId={selectedAlert?._id}
+              />
             </div>
           </div>
 
-          {/* Widget 5: Informations */}
-          <div className="col-span-5 bg-card-bg rounded-3xl p-5 border border-gray-800/40 shadow-xl flex flex-col">
-            <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-4 shrink-0">Server / Sensor Info</p>
-            <div className="flex-1 border-2 border-dashed border-gray-800/50 rounded-2xl text-gray-700 text-[10px] flex items-center justify-center">
-              Informations
-            </div>
-          </div>
+          {/* Widget 5: Informations (Sensor Info) */}
+          <SensorInfo
+            alert={selectedAlert}
+            onClose={() => setSelectedAlert(null)}
+            className="col-span-5"
+          />
 
           {/* Widget 6: Todo */}
           <div className="col-span-3 bg-card-bg rounded-3xl p-5 border border-gray-800/40 shadow-xl flex flex-col">
