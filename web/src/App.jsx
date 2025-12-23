@@ -5,10 +5,11 @@ import DigitalPlant from './widgets/DigitalPlant';
 import AnomalyFeed from './widgets/AnomalyFeed';
 import SensorInfo from './widgets/SensorInfo';
 import MiniTodo from './widgets/MiniTodo';
+import CustomDropdown from './components/CustomDropdown';
 
 
 function App() {
-  const [filter, setFilter] = useState({ scope: 'Worldwide', value: '' });
+  const [filter, setFilter] = useState({ scope: 'worldwide', value: '' });
   const [options, setOptions] = useState([]);
   const [selectedAlert, setSelectedAlert] = useState(null);
 
@@ -24,6 +25,22 @@ function App() {
         .catch(err => console.error(err))
     }
   }, [filter.scope]);
+
+  const scopeOptions = [
+    { value: 'worldwide', label: 'Worldwide' },
+    { value: 'country', label: 'Country' },
+    { value: 'user', label: 'User' }
+  ];
+
+  const valueOptions = options.map(opt => {
+    if (filter.scope === 'user') {
+      return {
+        value: opt._id || '',
+        label: opt.username || (opt._id ? `User ${opt._id.slice(-4)}` : 'User')
+      };
+    }
+    return { value: opt, label: opt };
+  });
 
   return (
     <div className="flex h-screen w-screen bg-dark-bg text-white overflow-hidden font-sans">
@@ -45,45 +62,24 @@ function App() {
         {/* TOP BAR (Header compact) */}
         <header className="flex justify-between items-center mb-6 shrink-0">
           <div className="flex items-center gap-3">
-            {/* Menu 1 : Le Scope */}
-            <div className="flex items-center gap-4 bg-card-bg/50 px-4 py-2 rounded-2xl border border-gray-800/50">
-              <span className="text-gray-500 text-sm">🌐</span>
-              <select
-                className="bg-transparent border-none text-sm font-medium outline-none cursor-pointer"
-                value={filter.scope}
-                onChange={(e) => {
-                  setFilter({ scope: e.target.value, value: '' });
-                  setOptions([]);
-                }}
-              >
-                <option value="worldwide" className="bg-card-bg">Worldwide</option>
-                <option value="country" className="bg-card-bg">Country</option>
-                <option value="user" className="bg-card-bg">User</option>
-              </select>
-            </div>
+            <CustomDropdown
+              icon="🌐"
+              options={scopeOptions}
+              value={filter.scope}
+              onChange={(val) => {
+                setFilter({ scope: val, value: '' });
+                setOptions([]);
+              }}
+            />
 
-            {/* Menu 2 : Dynamique (Pays ou Utilisateurs) */}
             {filter.scope !== 'worldwide' && (
-              <div className="flex items-center gap-4 bg-card-bg/50 px-4 py-2 rounded-2xl border border-gray-800/50 animate-in fade-in slide-in-from-left-2">
-                <select
-                  className="bg-transparent border-none text-sm font-medium outline-none cursor-pointer"
-                  value={filter.value}
-                  onChange={(e) => setFilter(prev => ({ ...prev, value: e.target.value }))}
-                >
-                  <option value="" className="bg-card-bg">Select {filter.scope}...</option>
-                  {options.map((opt, i) => (
-                    <option
-                      key={i}
-                      value={filter.scope === 'user' ? (opt._id || '') : opt}
-                      className="bg-card-bg"
-                    >
-                      {filter.scope === 'user'
-                        ? (opt.username || (opt._id ? `User ${opt._id.slice(-4)}` : 'User'))
-                        : (typeof opt === 'string' ? opt : '')}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              <CustomDropdown
+                placeholder={`Select ${filter.scope}...`}
+                options={valueOptions}
+                value={filter.value}
+                onChange={(val) => setFilter(prev => ({ ...prev, value: val }))}
+                className="min-w-[180px]"
+              />
             )}
           </div>
 

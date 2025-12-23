@@ -2,12 +2,27 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Plus, Check, Trash2, ListChecks, AlertCircle } from 'lucide-react';
 
+import CustomDropdown from '../components/CustomDropdown';
+
 const MiniTodo = ({ className = "" }) => {
     const [todos, setTodos] = useState([]);
     const [newTodo, setNewTodo] = useState("");
     const [newPriority, setNewPriority] = useState("medium");
     const [newCategory, setNewCategory] = useState("Ops");
     const [isAdding, setIsAdding] = useState(false);
+
+    const priorityOptions = [
+        { value: 'low', label: 'Low Priority' },
+        { value: 'medium', label: 'Medium Priority' },
+        { value: 'high', label: 'High Priority' }
+    ];
+
+    const categoryOptions = [
+        { value: 'Ops', label: 'Ops' },
+        { value: 'Maintenance', label: 'Maintenance' },
+        { value: 'Admin', label: 'Admin' },
+        { value: 'System', label: 'System' }
+    ];
 
     const fetchTodos = async () => {
         try {
@@ -84,38 +99,33 @@ const MiniTodo = ({ className = "" }) => {
             </div>
 
             {isAdding && (
-                <form onSubmit={addTodo} className="mb-4 flex flex-col gap-2 animate-in slide-in-from-top-2 duration-200">
+                <form onSubmit={addTodo} className="mb-4 flex flex-col gap-1.5 animate-in slide-in-from-top-2 duration-200 relative z-[60]">
                     <input
                         autoFocus
                         type="text"
                         value={newTodo}
                         onChange={(e) => setNewTodo(e.target.value)}
                         placeholder="New operational task..."
-                        className="w-full bg-black/30 border border-white/10 rounded-xl px-3 py-2 text-[11px] text-white outline-none focus:border-accent-green/50 transition-all font-sans"
+                        className="w-full bg-black/30 border border-white/10 rounded-xl px-3 py-1.5 text-[10px] text-white outline-none focus:border-accent-green/50 transition-all font-sans"
                     />
-                    <div className="flex gap-2">
-                        <select
+                    <div className="flex gap-1.5 items-center">
+                        <CustomDropdown
+                            options={priorityOptions}
                             value={newPriority}
-                            onChange={(e) => setNewPriority(e.target.value)}
-                            className="flex-1 bg-black/50 border border-white/10 rounded-lg px-2 py-1.5 text-[10px] text-white outline-none focus:border-accent-green/50 transition-all appearance-none cursor-pointer"
-                        >
-                            <option value="low" className="bg-[#121212] text-white">Low Priority</option>
-                            <option value="medium" className="bg-[#121212] text-white">Medium Priority</option>
-                            <option value="high" className="bg-[#121212] text-white">High Priority</option>
-                        </select>
-                        <select
+                            onChange={setNewPriority}
+                            className="flex-1"
+                            minWidth="80px"
+                        />
+                        <CustomDropdown
+                            options={categoryOptions}
                             value={newCategory}
-                            onChange={(e) => setNewCategory(e.target.value)}
-                            className="flex-1 bg-black/50 border border-white/10 rounded-lg px-2 py-1.5 text-[10px] text-white outline-none focus:border-accent-green/50 transition-all appearance-none cursor-pointer"
-                        >
-                            <option value="Ops" className="bg-[#121212] text-white">Ops</option>
-                            <option value="Maintenance" className="bg-[#121212] text-white">Maintenance</option>
-                            <option value="Admin" className="bg-[#121212] text-white">Admin</option>
-                            <option value="System" className="bg-[#121212] text-white">System</option>
-                        </select>
+                            onChange={setNewCategory}
+                            className="flex-1"
+                            minWidth="80px"
+                        />
                         <button
                             type="submit"
-                            className="bg-accent-green text-black font-black px-4 py-1.5 rounded-lg text-[10px] hover:bg-green-400 transition-all active:scale-95 shadow-[0_0_10px_rgba(56,229,170,0.15)]"
+                            className="bg-accent-green text-black font-black px-3 h-[32px] rounded-xl text-[9px] hover:bg-green-400 transition-all active:scale-95 shadow-[0_0_10px_rgba(56,229,170,0.15)] shrink-0"
                         >
                             ADD
                         </button>
