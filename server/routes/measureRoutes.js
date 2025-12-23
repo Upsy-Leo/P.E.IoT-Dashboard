@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const Measure = require('../models/Measures');
+const mongoose = require('mongoose');
 
 router.get('/stats', async (req, res) => {
     try {
-        const { type, location } = req.query;
+        const { type, location, userId } = req.query;
 
         if (!type) {
             return res.status(400).json({ message: "Le paramètre 'type' est requis (ex: airPollution)." });
@@ -12,7 +13,7 @@ router.get('/stats', async (req, res) => {
 
         let pipeline = [];
 
-            // on filtre par type de mesure immédiatement 
+        // on filtre par type de mesure immédiatement 
         pipeline.push({ $match: { type: type } });
 
         // on joint avec Sensors pour faire le lien avec l'utilisateur
@@ -26,19 +27,13 @@ router.get('/stats', async (req, res) => {
         });
         pipeline.push({ $unwind: "$sensor_info" });
 
-        // on joint avec Users pour accéder au champ 'location'
-        pipeline.push({
-            $lookup: {
-                from: "Users",
-                localField: "sensor_info.userID",
-                foreignField: "_id",
-                as: "user_info"
-            }
-        });
-        pipeline.push({ $unwind: "$user_info" });
-
-        // on filtre géographique optionnel (Worldwide par défaut)
-        if (location && location !== 'worldwide') {
+        if (userId) {
+            // Si on a un ID utilisateur, on filtre directement par userID dans Sensor
+            pipeline.push({ $match: { "sensor_info.userID": new mongoose.Types.ObjectId(userId) } });
+        } else if (location && location.toLowerCase() !== 'worldwide') {
+            // Sinon, on fait la jointure User pour filtrer par pays
+            pipeline.push({ $lookup: { from: "Users", localField: "sensor_info.userID", foreignField: "_id", as: "user_info" } });
+            pipeline.push({ $unwind: "$user_info" });
             pipeline.push({ $match: { "user_info.location": location } });
         }
 
@@ -61,6 +56,7 @@ router.get('/stats', async (req, res) => {
         pipeline.push({ $sort: { "_id": 1 } });
 
         const stats = await Measure.aggregate(pipeline);
+        console.log(`Stats request: type=${type}, location=${location}, userId=${userId}, found ${stats.length} results.`);
         res.json(stats);
     } catch (err) {
         res.status(500).json({ message: "Erreur lors de l'agrégation : " + err.message });
