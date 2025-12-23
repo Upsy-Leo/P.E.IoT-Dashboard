@@ -13,6 +13,29 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Route pour récupérer le profil de l'utilisateur actuel (Sylvie Martin par défaut pour la démo)
+router.get('/me', async (req, res) => {
+    try {
+        let user = await User.findOne({ username: 'Sylvie Martin' });
+
+        if (!user) {
+            // Création du profil Sylvie si inexistant
+            user = new User({
+                username: 'Sylvie Martin',
+                role: 'Operations Manager',
+                xp: 850,
+                level: 5,
+                location: 'Worldwide'
+            });
+            await user.save();
+        }
+
+        res.json(user);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 // Route pour récupérer la liste unique des pays (pour sélecteur global)
 router.get('/locations', async (req, res) => {
     try {

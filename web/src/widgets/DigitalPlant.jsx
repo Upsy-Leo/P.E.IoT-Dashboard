@@ -1,14 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { Sprout, Leaf, Flower, Flower2, TreeDeciduous, TreePalm, TreePine, Trees } from "lucide-react";
 
 const DigitalPlant = ({ className = "" }) => {
-    // Mock data for initial UI dev
-    const [xp, setXp] = useState(850);
-    const [level, setLevel] = useState(1);
+    const [user, setUser] = useState(null);
     const maxXp = 1000;
+
+    useEffect(() => {
+        const fetchXP = () => {
+            axios.get("http://localhost:3000/api/users/me")
+                .then(res => setUser(res.data))
+                .catch(err => console.error("Erreur XP API:", err));
+        };
+
+        fetchXP();
+        const interval = setInterval(fetchXP, 10000); 
+        return () => clearInterval(interval);
+    }, []);
+
+    const xp = user?.xp || 0;
+    const level = user?.level || 1;
     const progress = (xp / maxXp) * 100;
 
-    // Render plant based on level (simplified logic for now)
+    // Rendu de la plante en fonction du niveau
     const renderPlant = () => {
         if (level < 3) return <Leaf size={64} className="text-accent-green" />;
         if (level < 5) return <Sprout size={64} className="text-accent-green" />;
@@ -20,7 +34,7 @@ const DigitalPlant = ({ className = "" }) => {
     return (
         <div className={`bg-card-bg p-5 rounded-3xl shadow-xl flex flex-col items-center justify-between h-full relative overflow-hidden border border-gray-800/40 ${className}`}>
 
-            {/* Background Decor */}
+            {/* Decor */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-accent-green/5 rounded-full blur-3xl -z-10"></div>
 
             <div className="w-full">
@@ -28,23 +42,23 @@ const DigitalPlant = ({ className = "" }) => {
                 <p className="text-xs text-gray-500 mt-1">Resolve alerts to grow</p>
             </div>
 
-            {/* Main Circle Visual */}
+            {/* Cercle principal */}
             <div className="relative w-28 h-28 flex items-center justify-center my-1">
-                {/* Outer Glow */}
+                
                 <div className="absolute w-full h-full bg-black/40 rounded-full border border-gray-800/50 shadow-inner"></div>
 
-                {/* Plant Icon */}
+                
                 <div className="z-10 animate-bounce-slow transform transition-all duration-500">
                     {renderPlant()}
                 </div>
 
-                {/* Level Indicator Bubble */}
+                
                 <div className="absolute top-2 right-2 w-7 h-7 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center shadow-lg z-20">
                     <span className="text-[9px] font-bold text-accent-green">L{level}</span>
                 </div>
             </div>
 
-            {/* Progress Bar Container */}
+            {/* Barre de progression */}
             <div className="w-full space-y-1">
                 <div className="flex justify-between text-[9px] font-medium text-gray-400 uppercase tracking-widest">
                     <span>{xp} XP</span>
@@ -59,9 +73,10 @@ const DigitalPlant = ({ className = "" }) => {
                 </div>
             </div>
 
+            {/* Texte */}
             <div className="mt-2 text-center">
-                <p className="text-xs font-medium text-gray-300">Growing strong</p>
-                <p className="text-[9px] text-gray-500 uppercase tracking-wide mt-0.5">Keep resolving alerts to grow!</p>
+                <p className="text-xs font-medium text-gray-300">Votre plante grandit avec vous !</p>
+                <p className="text-[9px] text-gray-500 uppercase tracking-wide mt-0.5">Continuez à résoudre les alertes pour la faire grandir !</p>
             </div>
         </div>
     );

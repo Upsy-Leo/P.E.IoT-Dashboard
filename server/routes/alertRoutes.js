@@ -6,9 +6,9 @@ const Measure = require("../models/Measures");
 // Récuperation des alertes non résolues
 router.get('/', async (req, res) => {
     try {
-        const {location} = req.query;
-        let query = {status : "unresolved"};
-        if (location && location !== 'worldwide'){
+        const { location } = req.query;
+        let query = { status: "unresolved" };
+        if (location && location !== 'worldwide') {
             query.location = location;
         }
         const alerts = await Alert.find(query).sort('-createdAt');
@@ -21,8 +21,17 @@ router.get('/', async (req, res) => {
 // Traitement des alertes = xp pour l'admin
 router.post('/:id/resolve', async (req, res) => {
     try {
-        const alert = await Alert.findByIdAndUpdate(req.params.id, {status: "resolved"});
-        //ajouter logique pour augmenter xp
+        const alert = await Alert.findByIdAndUpdate(req.params.id, { status: "resolved" }, { new: true });
+
+        if (alert) {
+            //ajouter logique pour augmenter xp
+            const User = require("../models/User");
+            await User.findOneAndUpdate(
+                { username: 'Sylvie Martin' },
+                { $inc: { xp: 250 } }
+            );
+        }
+
         res.json(alert);
     } catch (err) {
         res.status(500).json({ message: err.message });
