@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import MeasureChart from './widgets/MeasureChart';
+import DigitalPlant from './widgets/DigitalPlant';
 import AnomalyFeed from './widgets/AnomalyFeed';
 
 
@@ -98,12 +99,7 @@ function App() {
         <div className="grid grid-cols-12 grid-rows-2 gap-5 flex-1 min-h-0">
 
           {/* Widget 1: plante digitale */}
-          <div className="col-span-3 bg-card-bg rounded-3xl p-5 border border-gray-800/40 shadow-xl flex flex-col">
-            <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-4 shrink-0">Digital Plant</p>
-            <div className="flex-1 border-2 border-dashed border-gray-800/50 rounded-2xl text-gray-700 text-[10px] flex items-center justify-center">
-              Plante
-            </div>
-          </div>
+          <DigitalPlant className="col-span-3" />
 
           {/* Widget 2: graphique */}
           <div className="col-span-6 bg-card-bg rounded-3xl p-5 border border-gray-800/40 shadow-xl flex flex-col">
