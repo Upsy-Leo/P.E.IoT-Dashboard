@@ -26,6 +26,7 @@ const CustomDropdown = ({ options, value, onChange, placeholder = "Select...", i
     return (
         <div className={`relative ${className}`} style={{ minWidth }} ref={dropdownRef}>
             <button
+                type="button"
                 onClick={() => setIsOpen(!isOpen)}
                 className="flex items-center gap-2 bg-card-bg/50 px-3 h-[32px] rounded-xl border border-white/5 hover:border-accent-green/30 hover:bg-card-bg transition-all duration-300 w-full text-left"
             >

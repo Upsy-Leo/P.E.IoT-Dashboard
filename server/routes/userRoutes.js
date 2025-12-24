@@ -46,4 +46,35 @@ router.get('/locations', async (req, res) => {
     }
 });
 
+// Route pour créer un nouvel utilisateur
+router.post('/', async (req, res) => {
+    try {
+        const newUser = new User(req.body);
+        const savedUser = await newUser.save();
+        res.status(201).json(savedUser);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+});
+
+// Route pour mettre à jour un utilisateur
+router.patch('/:id', async (req, res) => {
+    try {
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        res.json(updatedUser);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+});
+
+// Route pour supprimer un utilisateur
+router.delete('/:id', async (req, res) => {
+    try {
+        await User.findByIdAndDelete(req.params.id);
+        res.json({ message: "Utilisateur supprimé" });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 module.exports = router;

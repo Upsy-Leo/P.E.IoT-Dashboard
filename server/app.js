@@ -11,8 +11,8 @@ app.use(express.json());
 
 // Connexion MongoDB
 mongoose.connect(process.env.MONGO_URL)
-.then(() => console.log("Connecté à MongoDB"))
-.catch((err) => console.error("Erreur de connexion à MongoDB", err));
+    .then(() => console.log("Connecté à MongoDB"))
+    .catch((err) => console.error("Erreur de connexion à MongoDB", err));
 
 // Route test
 app.get("/", (req, res) => {
@@ -28,6 +28,7 @@ const adminRoutes = require("./routes/adminRoutes");
 const todoRoutes = require("./routes/todoRoutes");
 const measureRoutes = require("./routes/measureRoutes");
 const alertRoutes = require("./routes/alertRoutes");
+const sensorRoutes = require("./routes/sensorRoutes");
 
 // Liens
 app.use("/api/users", userRoutes);
@@ -35,6 +36,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/todos", todoRoutes);
 app.use("/api/measures", measureRoutes);
 app.use("/api/alerts", alertRoutes);
+app.use("/api/sensors", sensorRoutes);
 
 // Lancement du serveur
 app.listen(PORT, () => console.log(`Serveur lancé sur port ${PORT}`));

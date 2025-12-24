@@ -6,12 +6,14 @@ import AnomalyFeed from './widgets/AnomalyFeed';
 import SensorInfo from './widgets/SensorInfo';
 import MiniTodo from './widgets/MiniTodo';
 import CustomDropdown from './components/CustomDropdown';
+import AdminPage from './pages/AdminPage';
 
 
 function App() {
   const [filter, setFilter] = useState({ scope: 'worldwide', value: '' });
   const [options, setOptions] = useState([]);
   const [selectedAlert, setSelectedAlert] = useState(null);
+  const [currentPage, setCurrentPage] = useState('dashboard'); // 'dashboard' or 'admin'
 
   useEffect(() => {
     if (filter.scope === 'worldwide') {
@@ -50,9 +52,19 @@ function App() {
         <div className="w-10 h-10 bg-accent-green rounded-xl mb-10 flex items-center justify-center font-bold text-black shadow-[0_0_15px_rgba(46,204,113,0.3)]">
           IoT
         </div>
-        <nav className="flex flex-col gap-8 opacity-40">
-          <button className="text-xl hover:opacity-100 transition-opacity">📊</button>
-          <button className="text-xl hover:opacity-100 transition-opacity">⚙️</button>
+        <nav className="flex flex-col gap-8">
+          <button
+            onClick={() => setCurrentPage('dashboard')}
+            className={`text-xl transition-all ${currentPage === 'dashboard' ? 'opacity-100 scale-110' : 'opacity-40 hover:opacity-100'}`}
+          >
+            📊
+          </button>
+          <button
+            onClick={() => setCurrentPage('admin')}
+            className={`text-xl transition-all ${currentPage === 'admin' ? 'opacity-100 scale-110' : 'opacity-40 hover:opacity-100'}`}
+          >
+            ⚙️
+          </button>
         </nav>
       </aside>
 
@@ -62,24 +74,33 @@ function App() {
         {/* TOP BAR (Header compact) */}
         <header className="flex justify-between items-center mb-6 shrink-0">
           <div className="flex items-center gap-3">
-            <CustomDropdown
-              icon="🌐"
-              options={scopeOptions}
-              value={filter.scope}
-              onChange={(val) => {
-                setFilter({ scope: val, value: '' });
-                setOptions([]);
-              }}
-            />
+            {currentPage === 'dashboard' ? (
+              <>
+                <CustomDropdown
+                  icon="🌐"
+                  options={scopeOptions}
+                  value={filter.scope}
+                  onChange={(val) => {
+                    setFilter({ scope: val, value: '' });
+                    setOptions([]);
+                  }}
+                />
 
-            {filter.scope !== 'worldwide' && (
-              <CustomDropdown
-                placeholder={`Select ${filter.scope}...`}
-                options={valueOptions}
-                value={filter.value}
-                onChange={(val) => setFilter(prev => ({ ...prev, value: val }))}
-                className="min-w-[180px]"
-              />
+                {filter.scope !== 'worldwide' && (
+                  <CustomDropdown
+                    placeholder={`Select ${filter.scope}...`}
+                    options={valueOptions}
+                    value={filter.value}
+                    onChange={(val) => setFilter(prev => ({ ...prev, value: val }))}
+                    className="min-w-[180px]"
+                  />
+                )}
+              </>
+            ) : (
+              <div className="flex items-center gap-2">
+                <span className="text-gray-500">⚙️</span>
+                <span className="text-sm font-bold uppercase tracking-widest text-gray-400">Admin Control Panel</span>
+              </div>
             )}
           </div>
 
@@ -95,49 +116,53 @@ function App() {
         </header>
 
         {/* 3. GRILLE DES WIDGETS */}
-        <div className="grid grid-cols-12 grid-rows-2 gap-5 flex-1 min-h-0">
+        {currentPage === 'dashboard' ? (
+          <div className="grid grid-cols-12 grid-rows-2 gap-5 flex-1 min-h-0">
 
-          {/* Widget 1: plante digitale */}
-          <DigitalPlant className="col-span-3" />
+            {/* Widget 1: plante digitale */}
+            <DigitalPlant className="col-span-3" />
 
-          {/* Widget 2: graphique */}
-          <div className="col-span-6 bg-card-bg rounded-3xl p-5 border border-gray-800/40 shadow-xl flex flex-col">
-            <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-4 shrink-0">Sensor Measurements</p>
-            <div className="flex-1 overflow-hidden">
-              <MeasureChart type="temperature" filter={filter} />
+            {/* Widget 2: graphique */}
+            <div className="col-span-6 bg-card-bg rounded-3xl p-5 border border-gray-800/40 shadow-xl flex flex-col">
+              <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-4 shrink-0">Sensor Measurements</p>
+              <div className="flex-1 overflow-hidden">
+                <MeasureChart filter={filter} />
+              </div>
             </div>
-          </div>
 
-          {/* Widget 3: Audio */}
-          <div className="col-span-3 bg-card-bg rounded-3xl p-5 border border-gray-800/40 shadow-xl flex flex-col">
-            <div className="flex-1 border-2 border-dashed border-gray-800/50 rounded-2xl text-gray-700 text-[10px] flex items-center justify-center">
-              Audio
+            {/* Widget 3: Audio (Placeholder) */}
+            <div className="col-span-3 bg-card-bg rounded-3xl p-5 border border-gray-800/40 shadow-xl flex flex-col">
+              <div className="flex-1 border-2 border-dashed border-gray-800/50 rounded-2xl text-gray-700 text-[10px] flex items-center justify-center">
+                Audio
+              </div>
             </div>
-          </div>
 
-          {/* Widget 4: Alertes */}
-          <div className="col-span-4 bg-card-bg rounded-3xl p-5 border border-gray-800/40 shadow-xl flex flex-col overflow-hidden">
-            <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-4 shrink-0">Anomaly Feed</p>
-            <div className="flex-1 overflow-hidden">
-              <AnomalyFeed
-                filter={filter}
-                onAlertSelect={setSelectedAlert}
-                selectedAlertId={selectedAlert?._id}
-              />
+            {/* Widget 4: Alertes */}
+            <div className="col-span-4 bg-card-bg rounded-3xl p-5 border border-gray-800/40 shadow-xl flex flex-col overflow-hidden">
+              <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-4 shrink-0">Anomaly Feed</p>
+              <div className="flex-1 overflow-hidden">
+                <AnomalyFeed
+                  filter={filter}
+                  onAlertSelect={setSelectedAlert}
+                  selectedAlertId={selectedAlert?._id}
+                />
+              </div>
             </div>
+
+            {/* Widget 5: Informations (Sensor Info) */}
+            <SensorInfo
+              data={selectedAlert}
+              onClose={() => setSelectedAlert(null)}
+              className="col-span-5"
+            />
+
+            {/* Widget 6: Todo */}
+            <MiniTodo className="col-span-3" />
+
           </div>
-
-          {/* Widget 5: Informations (Sensor Info) */}
-          <SensorInfo
-            data={selectedAlert}
-            onClose={() => setSelectedAlert(null)}
-            className="col-span-5"
-          />
-
-          {/* Widget 6: Todo */}
-          <MiniTodo className="col-span-3" />
-
-        </div>
+        ) : (
+          <AdminPage />
+        )}
       </main>
     </div>
   );

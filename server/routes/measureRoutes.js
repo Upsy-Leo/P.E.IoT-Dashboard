@@ -111,4 +111,41 @@ router.get('/detail', async (req, res) => {
     }
 });
 
+// Route pour ajouter une nouvelle mesure
+router.post('/', async (req, res) => {
+    try {
+        const { type, sensorID, value } = req.body;
+        const newMeasure = new Measure({
+            type,
+            sensorID,
+            value,
+            creationDate: new Date()
+        });
+        const savedMeasure = await newMeasure.save();
+        res.status(201).json(savedMeasure);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+});
+
+// Route pour mettre à jour une mesure
+router.patch('/:id', async (req, res) => {
+    try {
+        const updatedMeasure = await Measure.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        res.json(updatedMeasure);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+});
+
+// Route pour supprimer une mesure
+router.delete('/:id', async (req, res) => {
+    try {
+        await Measure.findByIdAndDelete(req.params.id);
+        res.json({ message: "Mesure supprimée" });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 module.exports = router;
