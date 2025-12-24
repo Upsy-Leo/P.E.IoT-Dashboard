@@ -8,6 +8,7 @@ import MiniTodo from './widgets/MiniTodo';
 import WeatherWidget from './widgets/WeatherWidget';
 import CustomDropdown from './components/CustomDropdown';
 import AdminPage from './pages/AdminPage';
+import { LayoutDashboard, Settings } from 'lucide-react';
 
 
 function App() {
@@ -56,15 +57,15 @@ function App() {
         <nav className="flex flex-col gap-8">
           <button
             onClick={() => setCurrentPage('dashboard')}
-            className={`w-12 h-12 rounded-xl text-xl neumorphic-button ${currentPage === 'dashboard' ? 'active' : ''}`}
+            className={`w-12 h-12 rounded-xl neumorphic-button ${currentPage === 'dashboard' ? 'active' : ''}`}
           >
-            📊
+            <LayoutDashboard size={20} className={currentPage === 'dashboard' ? 'text-accent-green' : 'text-gray-400'} />
           </button>
           <button
             onClick={() => setCurrentPage('admin')}
-            className={`w-12 h-12 rounded-xl text-xl neumorphic-button ${currentPage === 'admin' ? 'active' : ''}`}
+            className={`w-12 h-12 rounded-xl neumorphic-button ${currentPage === 'admin' ? 'active' : ''}`}
           >
-            ⚙️
+            <Settings size={20} className={currentPage === 'admin' ? 'text-accent-green' : 'text-gray-400'} />
           </button>
         </nav>
       </aside>
@@ -125,7 +126,7 @@ function App() {
 
             {/* Widget 2: graphique (Glassmorphism) */}
             <div className="col-span-6 glass-card rounded-3xl p-5 shadow-2xl flex flex-col widget-transition">
-              <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-4 shrink-0">Sensor Measurements</p>
+              <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-4 shrink-0">Mesures des capteurs</p>
               <div className="flex-1 overflow-hidden">
                 <MeasureChart filter={filter} />
               </div>
@@ -136,7 +137,7 @@ function App() {
 
             {/* Widget 4: Alertes (Glassmorphism) */}
             <div className="col-span-4 glass-card rounded-3xl p-5 flex flex-col overflow-hidden widget-transition">
-              <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-4 shrink-0">Anomaly Feed</p>
+              <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-4 shrink-0">Alertes</p>
               <div className="flex-1 overflow-hidden">
                 <AnomalyFeed
                   filter={filter}

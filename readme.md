@@ -25,13 +25,55 @@ Le dashboard est conçu autour de ce persona afin de garantir une approche centr
 
 ---
 
+## Installation & Lancement
+
+1.  **Pré-requis** : Node.js et MongoDB installés et lancés.
+2.  **Cloner le projet** :
+    ```bash
+    git clone <votre-url-repo>
+    cd <votre-dossier-projet>
+    ```
+3.  **Lancer le Back-end** :
+    ```bash
+    cd server
+    npm install
+    npm run start
+    ```
+    Le serveur démarre sur `http://localhost:3000`.
+
+4.  **Lancer le Front-end** :
+    ```bash
+    cd web
+    npm install
+    npm run dev
+    ```
+    L'application est accessible sur `http://localhost:5173`.
+
+---
+
+## Fonctionnalités & Interface
+
+L'interface repose sur un **Design System unique** mêlant **Glassmorphism** (transparence, flou) et **Neumorphism** (relief tactile) pour une expérience immersive et moderne.
+
+### Dashboard Opérateur
+-   **Graphiques Interactifs** : Visualisation des données capteurs (Température, Humidité, Pollution) avec filtres temporels.
+-   **Plante Digitale** : Widget gamifié qui évolue en fonction de la résolution des incidents.
+-   **Ckecklist Opérations** : Gestionnaire de tâches rapide (`MiniTodo`) pour les actions quotidiennes.
+-   **Feed d'Anomalies** : Liste des alertes en temps réel avec **code couleur sémantique** (Orange = Température, Bleu = Humidité, Vert = Pollution).
+-   **Météo Locale** : Widget météo contextuel basé sur la localisation.
+
+### Page Admin
+-   **Provisioning** : Création manuelle d'Opérateurs, de Capteurs et injection de Mesures de test.
+-   **Explorateur de Données** : Tableau de bord CRUD pour gérer toutes les collections (Utilisateurs, Capteurs, Mesures) avec édition et suppression en ligne.
+
+---
+
 ## Stack technique
 
-- **Front-end** : React, Recharts  
-- **Back-end** : Node.js, Express  
-- **Base de données** : MongoDB  
-- **UX & UI design** : Figma  
-- **Gestion de projet** : Notion  
+-   **Front-end** : React 19, Tailwind CSS v4, Recharts, Lucide-react (Icônes)
+-   **Back-end** : Node.js, Express, Nodemon
+-   **Base de données** : MongoDB, Mongoose
+-   **UX & UI** : Design System "Glass-Morphic" personnalisé (CSS pur + Tailwind)
 
 ---
 

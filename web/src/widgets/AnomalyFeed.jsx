@@ -79,7 +79,13 @@ const AnomalyFeed = ({ filter, onAlertSelect, selectedAlertId }) => {
                                 onClick={() => onAlertSelect(alert)}
                                 className={`cursor-pointer border-l-4 p-3 rounded-r-xl transition-all duration-300 ${isSelected
                                     ? 'bg-white/15 border-accent-green shadow-lg scale-[1.02]'
-                                    : 'bg-white/5 border-red-500 hover:bg-white/10'
+                                    : alert.type === 'temperature'
+                                        ? 'bg-white/5 border-orange-500 hover:bg-white/10'
+                                        : alert.type === 'humidity'
+                                            ? 'bg-white/5 border-blue-500 hover:bg-white/10'
+                                            : alert.type === 'airPollution'
+                                                ? 'bg-white/5 border-green-500 hover:bg-white/10'
+                                                : 'bg-white/5 border-red-500 hover:bg-white/10'
                                     }`}
                             >
                                 <div className="flex justify-between items-start mb-1 text-gray-400">
@@ -91,7 +97,15 @@ const AnomalyFeed = ({ filter, onAlertSelect, selectedAlertId }) => {
                                             Zone: {room} — <span className="text-gray-400">{tenants} tenants ({hSize})</span>
                                         </p>
                                     </div>
-                                    <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold uppercase shrink-0 ${isSelected ? 'bg-accent-green/20 text-accent-green' : 'bg-red-500/20 text-red-500'
+                                    <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold uppercase shrink-0 ${isSelected
+                                        ? 'bg-accent-green/20 text-accent-green'
+                                        : alert.type === 'temperature'
+                                            ? 'bg-orange-500/20 text-orange-500'
+                                            : alert.type === 'humidity'
+                                                ? 'bg-blue-500/20 text-blue-500'
+                                                : alert.type === 'airPollution'
+                                                    ? 'bg-green-500/20 text-green-500'
+                                                    : 'bg-red-500/20 text-red-500'
                                         }`}>
                                         {alert.type || 'Alert'}
                                     </span>

@@ -48,7 +48,7 @@ const SensorInfo = ({ data, onClose, className = "" }) => {
         return (
             <div className={`glass-card p-4 rounded-3xl flex flex-col items-center justify-center text-center opacity-30 ${className}`}>
                 <Shield className="text-gray-700 mb-2" size={20} />
-                <p className="text-[9px] uppercase tracking-widest text-gray-500 font-bold">Waiting for selection</p>
+                <p className="text-[9px] uppercase tracking-widest text-gray-500 font-bold">Selectionnez une alerte</p>
             </div>
         );
     }
@@ -58,9 +58,14 @@ const SensorInfo = ({ data, onClose, className = "" }) => {
             {/* Header */}
             <div className="flex justify-between items-center mb-4">
                 <div className="flex items-center gap-2">
-                    <div className={`w-1.5 h-1.5 rounded-full ${isAlert ? 'bg-red-500 animate-pulse' : 'bg-blue-500'}`}></div>
+                    <div className={`w-1.5 h-1.5 rounded-full ${isAlert ? (
+                        type === 'temperature' ? 'bg-orange-500 animate-pulse' :
+                            type === 'humidity' ? 'bg-blue-500 animate-pulse' :
+                                type === 'airPollution' ? 'bg-green-500 animate-pulse' :
+                                    'bg-red-500 animate-pulse'
+                    ) : 'bg-blue-500'}`}></div>
                     <p className="text-[8px] uppercase tracking-[0.2em] text-gray-500 font-black">
-                        {isAlert ? 'Anomaly Alert' : 'Data Selection'}
+                        {isAlert ? 'Alerte Anomalie' : 'Selection des données'}
                     </p>
                 </div>
                 <button
@@ -75,7 +80,7 @@ const SensorInfo = ({ data, onClose, className = "" }) => {
             <div className="mb-4">
                 <h3 className="text-xl font-black text-white leading-tight">{country}</h3>
                 <p className="text-[9px] text-gray-500 uppercase font-bold tracking-tighter mt-1">
-                    Sensor: {type} — <span className="text-accent-green">{room}</span>
+                    Capteur: {type} — <span className="text-accent-green">{room}</span>
                 </p>
             </div>
 
@@ -84,14 +89,14 @@ const SensorInfo = ({ data, onClose, className = "" }) => {
                 {/* Case 1: Valeur */}
                 <div className="bg-black/30 border border-white/5 rounded-xl p-2.5 flex flex-col items-center justify-center text-center">
                     <Activity className={`${isAlert ? 'text-accent-green' : 'text-blue-400'} mb-1`} size={14} />
-                    <p className="text-[7px] text-gray-500 uppercase font-bold tracking-tighter">Value</p>
+                    <p className="text-[7px] text-gray-500 uppercase font-bold tracking-tighter">Valeur</p>
                     <p className="text-xs font-black text-white">{value}</p>
                 </div>
 
                 {/* Case 2: Identifiants */}
                 <div className="bg-black/30 border border-white/5 rounded-xl p-2.5 flex flex-col items-center justify-center text-center">
                     <User className="text-gray-500 mb-1" size={14} />
-                    <p className="text-[7px] text-gray-500 uppercase font-bold tracking-tighter">REF / PROPERTY</p>
+                    <p className="text-[7px] text-gray-500 uppercase font-bold tracking-tighter">REF / PROPRIETE</p>
                     <p className="text-[9px] font-mono text-gray-300">{userIdDisplay}</p>
                     <p className="text-[8px] font-bold text-gray-400 mt-0.5 truncate w-full uppercase">
                         {tenants} pers. / {houseSize}
@@ -101,7 +106,7 @@ const SensorInfo = ({ data, onClose, className = "" }) => {
                 {/* Case 3: Date et Heure */}
                 <div className="bg-black/30 border border-white/5 rounded-xl p-2.5 flex flex-col items-center justify-center text-center">
                     <Clock className="text-gray-500 mb-1" size={14} />
-                    <p className="text-[7px] text-gray-500 uppercase font-bold tracking-tighter">Timestamp</p>
+                    <p className="text-[7px] text-gray-500 uppercase font-bold tracking-tighter">Date et Heure</p>
                     <p className="text-[9px] text-gray-300 font-mono">
                         {new Date(timestamp).toLocaleDateString([], { day: '2-digit', month: '2-digit' })}
                     </p>
@@ -120,18 +125,15 @@ const SensorInfo = ({ data, onClose, className = "" }) => {
                         className="flex-[2] neumorphic-button accent py-2.5 rounded-xl transition-all disabled:opacity-50 flex items-center justify-center gap-1.5 text-[9px] uppercase font-black"
                     >
                         <CheckCircle2 size={12} />
-                        Resolve Incident
+                        Résoudre l'incident
                     </button>
                 ) : (
                     <div className="flex-[2] bg-white/5 border border-white/5 text-gray-500 font-black py-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[9px] uppercase">
-                        Monitoring Only
+                        Seulement un suivi
                     </div>
                 )}
                 <button className="flex-1 neumorphic-button py-2 rounded-xl text-[8px] uppercase tracking-widest font-bold">
-                    Tools
-                </button>
-                <button className="flex-1 neumorphic-button py-2 rounded-xl text-[8px] uppercase tracking-widest font-bold">
-                    Report
+                    Signaler
                 </button>
             </div>
         </div>

@@ -38,8 +38,7 @@ const DigitalPlant = ({ className = "" }) => {
             <div className="absolute top-0 right-0 w-32 h-32 bg-accent-green/5 rounded-full blur-3xl -z-10"></div>
 
             <div className="w-full">
-                <h2 className="text-base font-semibold text-gray-100">Digital Plant</h2>
-                <p className="text-xs text-gray-500 mt-1">Resolve alerts to grow</p>
+                <h2 className="text-base font-semibold text-gray-100">Plante Digitale</h2>
             </div>
 
             {/* Cercle principal */}

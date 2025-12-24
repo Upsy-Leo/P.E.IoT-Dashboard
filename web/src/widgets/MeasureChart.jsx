@@ -28,7 +28,7 @@ const MeasureChart = ({ type: initialType = "temperature", filter }) => {
     const toggleType = (t) => setCurrentType(t);
 
     const colorMap = {
-        temperature: '#ef4444', // Red-500
+        temperature: '#f97316', // Orange-500
         humidity: '#3b82f6',     // Blue-500
         airPollution: '#22c55e'  // Green-500
     };

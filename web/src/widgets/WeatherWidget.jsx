@@ -56,7 +56,7 @@ const WeatherWidget = ({ filter, className = "" }) => {
         <div className={`glass-card widget-transition p-5 rounded-3xl flex flex-col justify-between h-full relative overflow-hidden ${className}`}>
             <div className="flex justify-between items-start">
                 <div>
-                    <h2 className="text-base font-black text-white uppercase tracking-tighter">Local Weather</h2>
+                    <h2 className="text-base font-black text-white uppercase tracking-tighter">Météo Locale</h2>
                     <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">{weather?.location || 'Worldwide'}</p>
                 </div>
                 <div className="bg-black/20 p-2 rounded-xl border border-white/5">
@@ -73,14 +73,14 @@ const WeatherWidget = ({ filter, className = "" }) => {
                 <div className="flex items-center gap-2">
                     <Droplets size={14} className="text-blue-400" />
                     <div className="flex flex-col">
-                        <span className="text-[8px] text-gray-600 font-black uppercase tracking-widest">Humidity</span>
+                        <span className="text-[8px] text-gray-600 font-black uppercase tracking-widest">Humidité</span>
                         <span className="text-xs font-bold text-gray-300">{weather?.humidity}%</span>
                     </div>
                 </div>
                 <div className="flex items-center gap-2">
                     <Wind size={14} className="text-teal-400" />
                     <div className="flex flex-col">
-                        <span className="text-[8px] text-gray-600 font-black uppercase tracking-widest">Wind</span>
+                        <span className="text-[8px] text-gray-600 font-black uppercase tracking-widest">Vent</span>
                         <span className="text-xs font-bold text-gray-300">{weather?.wind} km/h</span>
                     </div>
                 </div>

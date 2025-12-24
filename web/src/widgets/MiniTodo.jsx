@@ -86,7 +86,7 @@ const MiniTodo = ({ className = "" }) => {
     return (
         <div className={`glass-card widget-transition p-5 rounded-3xl flex flex-col justify-between h-full relative overflow-hidden ${className}`}>
             <div className="flex justify-between items-center mb-4 shrink-0 w-full">
-                <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500 font-bold">Operation Checklist</p>
+                <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500 font-bold">Taches</p>
                 <div className="flex gap-2 ml-6">
                     <button
                         onClick={() => setIsAdding(!isAdding)}
@@ -138,7 +138,7 @@ const MiniTodo = ({ className = "" }) => {
                     {todos.length === 0 ? (
                         <div className={`glass-card p-4 rounded-3xl flex flex-col items-center justify-center text-center opacity-30 ${className}`}>
                             <Check size={24} />
-                            <p className="text-[9px] uppercase mt-2">All tasks completed</p>
+                            <p className="text-[9px] uppercase mt-2">Toutes les taches sont terminées</p>
                         </div>
                     ) : (
                         todos.map((todo) => (
@@ -186,13 +186,13 @@ const MiniTodo = ({ className = "" }) => {
             {/* Stats Summary */}
             <div className="mt-4 pt-4 border-t border-white/5 flex justify-between items-center text-[8px] uppercase tracking-widest font-black text-gray-600">
                 <div className="flex gap-3">
-                    <span>Active: {todos.filter(t => !t.completed).length}</span>
-                    <span>Done: {todos.filter(t => t.completed).length}</span>
+                    <span>Actif: {todos.filter(t => !t.completed).length}</span>
+                    <span>Terminé: {todos.filter(t => t.completed).length}</span>
                 </div>
                 {todos.some(t => !t.completed && t.priority === 'high') && (
                     <div className="flex items-center gap-1 text-red-500/70">
                         <AlertCircle size={10} />
-                        <span>High Priority Urgent</span>
+                        <span>Haute Priorité Urgente</span>
                     </div>
                 )}
             </div>

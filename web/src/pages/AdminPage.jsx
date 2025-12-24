@@ -169,8 +169,8 @@ const AdminPage = () => {
                 {/* Header Section */}
                 <div className="flex items-center justify-between mb-8">
                     <div>
-                        <h2 className="text-2xl font-black tracking-tighter text-white">SYSTEM PROVISIONING</h2>
-                        <p className="text-xs text-gray-500 uppercase tracking-widest mt-1">Manual Database Management Control Panel</p>
+                        <h2 className="text-2xl font-black tracking-tighter text-white">PAGE ADMINISTRATEUR</h2>
+                        <p className="text-xs text-gray-500 uppercase tracking-widest mt-1">Panel de gestion manuelle de la base de données</p>
                     </div>
                     {status.message && (
                         <div className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center gap-2 animate-in slide-in-from-right-4 ${status.type === 'error' ? 'bg-red-500/10 text-red-500 border border-red-500/20' : 'bg-accent-green/10 text-accent-green border border-accent-green/20'
@@ -189,10 +189,10 @@ const AdminPage = () => {
                             <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500">
                                 <UserPlus size={20} />
                             </div>
-                            <h3 className="font-bold text-gray-200 uppercase tracking-tight">Add Operator</h3>
+                            <h3 className="font-bold text-gray-200 uppercase tracking-tight">Ajouter un opérateur</h3>
                         </div>
                         <form onSubmit={handleCreateUser}>
-                            <label className={labelClass}>Base Location (Country)</label>
+                            <label className={labelClass}>Localisation de base (Pays)</label>
                             <input
                                 className={inputClass}
                                 placeholder="France, Japan..."
@@ -203,7 +203,7 @@ const AdminPage = () => {
 
                             <div className="grid grid-cols-2 gap-3 mb-3">
                                 <div>
-                                    <label className={labelClass}>House Size</label>
+                                    <label className={labelClass}>Taille de la maison</label>
                                     <CustomDropdown
                                         options={[
                                             { value: 'small', label: 'Small' },
@@ -216,7 +216,7 @@ const AdminPage = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label className={labelClass}>Capacity</label>
+                                    <label className={labelClass}>Capacité</label>
                                     <input
                                         type="number"
                                         className={inputClass}
@@ -228,7 +228,7 @@ const AdminPage = () => {
                             </div>
 
                             <button type="submit" className="w-full h-12 rounded-2xl neumorphic-button accent !bg-blue-500 !text-white text-[10px] font-black uppercase tracking-widest">
-                                Register Member
+                                Enregistrer l'opérateur
                             </button>
                         </form>
                     </div>
@@ -239,10 +239,10 @@ const AdminPage = () => {
                             <div className="w-10 h-10 rounded-xl bg-accent-green/10 flex items-center justify-center text-accent-green">
                                 <Radio size={20} />
                             </div>
-                            <h3 className="font-bold text-gray-200 uppercase tracking-tight">Deploy Sensor</h3>
+                            <h3 className="font-bold text-gray-200 uppercase tracking-tight">Enregistrer un capteur</h3>
                         </div>
                         <form onSubmit={handleCreateSensor}>
-                            <label className={labelClass}>Deployment Zone</label>
+                            <label className={labelClass}>Zone de déploiement</label>
                             <input
                                 className={inputClass}
                                 placeholder="e.g. Livingroom, Factory A"
@@ -251,7 +251,7 @@ const AdminPage = () => {
                                 required
                             />
 
-                            <label className={labelClass}>Assigned To Operator</label>
+                            <label className={labelClass}>Assigné à l'opérateur</label>
                             <CustomDropdown
                                 options={users.map(u => ({
                                     value: u._id,
@@ -268,7 +268,7 @@ const AdminPage = () => {
                                 disabled={!sensorForm.userID}
                                 className="w-full h-12 rounded-2xl neumorphic-button accent text-[10px] font-black uppercase tracking-widest disabled:opacity-30"
                             >
-                                Activate Node
+                                Enregistrer le capteur
                             </button>
                         </form>
                     </div>
@@ -279,10 +279,10 @@ const AdminPage = () => {
                             <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500">
                                 <Activity size={20} />
                             </div>
-                            <h3 className="font-bold text-gray-200 uppercase tracking-tight">Inject Data</h3>
+                            <h3 className="font-bold text-gray-200 uppercase tracking-tight">Enregistrer une mesure</h3>
                         </div>
                         <form onSubmit={handleCreateMeasure}>
-                            <label className={labelClass}>Source Node (Sensor ID)</label>
+                            <label className={labelClass}>Capteur source (ID du capteur)</label>
                             <CustomDropdown
                                 options={sensors.map(s => ({
                                     value: s._id,
@@ -294,7 +294,7 @@ const AdminPage = () => {
                                 className="mb-3"
                             />
 
-                            <label className={labelClass}>Telemetry Type</label>
+                            <label className={labelClass}>Type de telemétrie</label>
                             <CustomDropdown
                                 options={[
                                     { value: 'temperature', label: 'Temperature (°C)' },
@@ -306,7 +306,7 @@ const AdminPage = () => {
                                 className="mb-3"
                             />
 
-                            <label className={labelClass}>Value</label>
+                            <label className={labelClass}>Valeur</label>
                             <input
                                 type="number"
                                 step="0.1"
@@ -321,7 +321,7 @@ const AdminPage = () => {
                                 disabled={!measureForm.sensorID}
                                 className="w-full h-12 rounded-2xl neumorphic-button accent !bg-purple-600 !text-white text-[10px] font-black uppercase tracking-widest disabled:opacity-30"
                             >
-                                Emit Telemetry
+                                Enregistrer la mesure
                             </button>
                         </form>
                     </div>
@@ -331,8 +331,8 @@ const AdminPage = () => {
                 <div className="bg-card-bg/40 backdrop-blur-md rounded-3xl p-8 border border-white/5 shadow-2xl relative overflow-hidden">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
                         <div>
-                            <h3 className="text-xl font-black text-white tracking-widest uppercase">Database Explorer</h3>
-                            <p className="text-[10px] text-gray-500 uppercase tracking-widest mt-1">Live Management of System Records</p>
+                            <h3 className="text-xl font-black text-white tracking-widest uppercase">Explorateur de données</h3>
+                            <p className="text-[10px] text-gray-500 uppercase tracking-widest mt-1">Gestion en temps réel des enregistrements du système</p>
                         </div>
 
                         <div className="flex bg-black/40 p-1.5 rounded-2xl border border-white/5 self-start gap-1">
@@ -355,9 +355,9 @@ const AdminPage = () => {
                         <table className="w-full text-left border-separate border-spacing-y-2">
                             <thead>
                                 <tr className="text-[10px] uppercase font-black text-gray-600 tracking-widest">
-                                    <th className="px-4 py-2">Identity / Info</th>
-                                    <th className="px-4 py-2">Properties</th>
-                                    <th className="px-4 py-2 text-right">Operations</th>
+                                    <th className="px-4 py-2">Identité / Info</th>
+                                    <th className="px-4 py-2">Propriétés</th>
+                                    <th className="px-4 py-2 text-right">Opérations</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -390,14 +390,14 @@ const AdminPage = () => {
                                                     <button
                                                         onClick={() => handleSaveEdit(item._id)}
                                                         className="p-2 bg-accent-green/10 text-accent-green hover:bg-accent-green hover:text-black rounded-lg transition-all"
-                                                        title="Save Changes"
+                                                        title="Sauvegarder les modifications"
                                                     >
                                                         <CheckCircle2 size={16} />
                                                     </button>
                                                     <button
                                                         onClick={() => setEditingId(null)}
                                                         className="p-2 bg-gray-500/10 text-gray-500 hover:bg-gray-500 hover:text-white rounded-lg transition-all"
-                                                        title="Cancel"
+                                                        title="Annuler"
                                                     >
                                                         <X size={16} />
                                                     </button>
@@ -407,14 +407,14 @@ const AdminPage = () => {
                                                     <button
                                                         onClick={() => startEditing(item)}
                                                         className="w-8 h-8 rounded-lg neumorphic-button text-blue-400"
-                                                        title="Edit Entry"
+                                                        title="Modifier l'entrée"
                                                     >
                                                         <Pencil size={14} />
                                                     </button>
                                                     <button
                                                         onClick={() => handleDelete(item._id)}
                                                         className="w-8 h-8 rounded-lg neumorphic-button text-red-400"
-                                                        title="Delete Entry"
+                                                        title="Supprimer l'entrée"
                                                     >
                                                         <Trash2 size={14} />
                                                     </button>
@@ -428,7 +428,7 @@ const AdminPage = () => {
                         {getCollectionData().length === 0 && (
                             <div className="py-20 text-center flex flex-col items-center justify-center opacity-30">
                                 <Activity size={48} className="mb-4 text-gray-500" />
-                                <p className="text-xs uppercase font-bold tracking-widest text-gray-500">No records found for {selectedCollection}</p>
+                                <p className="text-xs uppercase font-bold tracking-widest text-gray-500">Aucun enregistrement trouvé pour {selectedCollection}</p>
                             </div>
                         )}
                     </div>
@@ -436,9 +436,9 @@ const AdminPage = () => {
 
                 {/* System Activity Log (Condensed) */}
                 <div className="bg-black/20 rounded-3xl p-6 border border-white/5 h-[150px] overflow-hidden flex flex-col">
-                    <p className="text-[10px] uppercase font-black text-gray-600 tracking-widest mb-4">Operations Log</p>
+                    <p className="text-[10px] uppercase font-black text-gray-600 tracking-widest mb-4">Log des opérations</p>
                     <div className="flex-1 overflow-y-auto space-y-2 font-mono text-[10px] text-gray-500">
-                        <p className="flex gap-2"><span className="text-gray-700">[SYSTEM]</span> Ready for data orchestration...</p>
+                        <p className="flex gap-2"><span className="text-gray-700">[SYSTEM]</span> Prêt pour l'orchestration des données...</p>
                         {status.message && <p className="flex gap-2 animate-pulse"><span className="text-accent-green">[DB]</span> {status.message}</p>}
                     </div>
                 </div>
