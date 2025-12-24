@@ -5,6 +5,7 @@ import DigitalPlant from './widgets/DigitalPlant';
 import AnomalyFeed from './widgets/AnomalyFeed';
 import SensorInfo from './widgets/SensorInfo';
 import MiniTodo from './widgets/MiniTodo';
+import WeatherWidget from './widgets/WeatherWidget';
 import CustomDropdown from './components/CustomDropdown';
 import AdminPage from './pages/AdminPage';
 
@@ -122,23 +123,19 @@ function App() {
             {/* Widget 1: plante digitale */}
             <DigitalPlant className="col-span-3" />
 
-            {/* Widget 2: graphique */}
-            <div className="col-span-6 bg-card-bg rounded-3xl p-5 border border-gray-800/40 shadow-xl flex flex-col">
+            {/* Widget 2: graphique (Glassmorphism) */}
+            <div className="col-span-6 glass-card rounded-3xl p-5 shadow-2xl flex flex-col widget-transition">
               <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-4 shrink-0">Sensor Measurements</p>
               <div className="flex-1 overflow-hidden">
                 <MeasureChart filter={filter} />
               </div>
             </div>
 
-            {/* Widget 3: Audio (Placeholder) */}
-            <div className="col-span-3 bg-card-bg rounded-3xl p-5 border border-gray-800/40 shadow-xl flex flex-col">
-              <div className="flex-1 border-2 border-dashed border-gray-800/50 rounded-2xl text-gray-700 text-[10px] flex items-center justify-center">
-                Audio
-              </div>
-            </div>
+            {/* Widget 3: Weather (Neumorphic) */}
+            <WeatherWidget filter={filter} className="col-span-3" />
 
-            {/* Widget 4: Alertes */}
-            <div className="col-span-4 bg-card-bg rounded-3xl p-5 border border-gray-800/40 shadow-xl flex flex-col overflow-hidden">
+            {/* Widget 4: Alertes (Neumorphic) */}
+            <div className="col-span-4 neumorphic-card rounded-3xl p-5 flex flex-col overflow-hidden widget-transition">
               <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-4 shrink-0">Anomaly Feed</p>
               <div className="flex-1 overflow-hidden">
                 <AnomalyFeed

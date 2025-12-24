@@ -79,7 +79,13 @@ const MeasureChart = ({ type: initialType = "temperature", filter }) => {
                             axisLine={false}
                             tickLine={false}
                             tick={{ fill: '#4b5563', fontSize: 10 }}
-                            tickFormatter={(str) => str ? str.split('-').slice(1, 3).reverse().join('/') : ''}
+                            tickFormatter={(str) => {
+                                if (!str) return '';
+                                const parts = str.split(' ');
+                                const dateParts = parts[0].split('-');
+                                const dayMonth = `${dateParts[2]}/${dateParts[1]}`;
+                                return parts[1] ? `${dayMonth} ${parts[1].split(':')[0]}h` : dayMonth;
+                            }}
                         />
 
                         <YAxis axisLine={false} tickLine={false} tick={{ fill: '#4b5563', fontSize: 10 }} />

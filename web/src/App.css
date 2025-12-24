@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --color-dark-bg: #0b0e11;
+  --color-dark-bg: #111418;
+  /* Slightly lighter for better neumorphic contrast */
   --color-card-bg: #15191e;
   --color-accent-green: #2ecc71;
   --radius-3xl: 24px;
@@ -11,6 +12,36 @@
 body {
   background-color: var(--color-dark-bg);
   margin: 0;
-  overflow: hidden; /* Empêche le scroll global */
+  overflow: hidden;
   height: 100vh;
+}
+
+/* Effet Neumorphisme (Raised) */
+.neumorphic-card {
+  background: var(--color-card-bg);
+  box-shadow:
+    8px 8px 20px #0a0d10,
+    -8px -8px 20px #1c2128;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+/* Effet Glassmorphisme */
+.glass-card {
+  background: rgba(21, 25, 30, 0.6) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Animation douce pour les interactions */
+.widget-transition {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.widget-transition:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    10px 10px 25px #080a0c,
+    -10px -10px 25px #20262e;
 }

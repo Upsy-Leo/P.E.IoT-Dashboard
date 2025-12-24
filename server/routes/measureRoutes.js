@@ -69,10 +69,16 @@ router.get('/stats', async (req, res) => {
             pipeline.push({ $match: { convertedDate: dateFilter } });
         }
 
-        // on group par jour et calcul de la moyenne pour Recharts
+        // Définition de la granularité selon la période
+        let dateFormat = "%Y-%m-%d";
+        if (period === 'week' || period === 'month') {
+            dateFormat = "%Y-%m-%d %H:00"; // On groupe par heure pour les courtes périodes
+        }
+
+        // on group par jour/heure et calcul de la moyenne pour Recharts
         pipeline.push({
             $group: {
-                _id: { $dateToString: { format: "%Y-%m-%d", date: "$convertedDate" } },
+                _id: { $dateToString: { format: dateFormat, date: "$convertedDate" } },
                 averageValue: { $avg: "$value" }
             }
         });

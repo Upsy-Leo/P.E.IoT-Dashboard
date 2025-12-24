@@ -84,7 +84,7 @@ const MiniTodo = ({ className = "" }) => {
     };
 
     return (
-        <div className={`bg-card-bg rounded-3xl p-5 border border-gray-800/40 shadow-xl flex flex-col h-full overflow-hidden ${className}`}>
+        <div className={`neumorphic-card widget-transition p-5 rounded-3xl flex flex-col items-center justify-between h-full relative overflow-hidden ${className}`}>
             <div className="flex justify-between items-center mb-4 shrink-0">
                 <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500 font-bold">Operation Checklist</p>
                 <div className="flex gap-2">
@@ -99,7 +99,7 @@ const MiniTodo = ({ className = "" }) => {
             </div>
 
             {isAdding && (
-                <form onSubmit={addTodo} className="mb-4 flex flex-col gap-1.5 animate-in slide-in-from-top-2 duration-200 relative z-[60]">
+                <form onSubmit={addTodo} className={`neumorphic-card widget-transition p-4 rounded-3xl flex flex-col ${className} animate-in fade-in slide-in-from-bottom-2 duration-300 relative z-[60]`}>
                     <input
                         autoFocus
                         type="text"
@@ -136,7 +136,7 @@ const MiniTodo = ({ className = "" }) => {
             <div className="flex-1 overflow-y-auto pr-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                 <div className="flex flex-col gap-2">
                     {todos.length === 0 ? (
-                        <div className="flex flex-col items-center justify-center py-10 opacity-20">
+                        <div className={`neumorphic-card p-4 rounded-3xl flex flex-col items-center justify-center text-center opacity-30 ${className}`}>
                             <Check size={24} />
                             <p className="text-[9px] uppercase mt-2">All tasks completed</p>
                         </div>
