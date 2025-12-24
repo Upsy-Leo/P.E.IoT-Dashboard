@@ -131,11 +131,11 @@ function App() {
               </div>
             </div>
 
-            {/* Widget 3: Weather (Neumorphic) */}
-            <WeatherWidget filter={filter} className="col-span-3" />
+            {/* Widget 3: Weather (Glassmorphism) */}
+            <WeatherWidget filter={filter} className="col-span-3 glass-card" />
 
-            {/* Widget 4: Alertes (Neumorphic) */}
-            <div className="col-span-4 neumorphic-card rounded-3xl p-5 flex flex-col overflow-hidden widget-transition">
+            {/* Widget 4: Alertes (Glassmorphism) */}
+            <div className="col-span-4 glass-card rounded-3xl p-5 flex flex-col overflow-hidden widget-transition">
               <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-4 shrink-0">Anomaly Feed</p>
               <div className="flex-1 overflow-hidden">
                 <AnomalyFeed

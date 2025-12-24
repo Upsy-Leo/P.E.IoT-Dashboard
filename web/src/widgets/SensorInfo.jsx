@@ -46,7 +46,7 @@ const SensorInfo = ({ data, onClose, className = "" }) => {
 
     if (!data) {
         return (
-            <div className={`neumorphic-card p-4 rounded-3xl flex flex-col items-center justify-center text-center opacity-30 ${className}`}>
+            <div className={`glass-card p-4 rounded-3xl flex flex-col items-center justify-center text-center opacity-30 ${className}`}>
                 <Shield className="text-gray-700 mb-2" size={20} />
                 <p className="text-[9px] uppercase tracking-widest text-gray-500 font-bold">Waiting for selection</p>
             </div>
@@ -54,7 +54,7 @@ const SensorInfo = ({ data, onClose, className = "" }) => {
     }
 
     return (
-        <div className={`neumorphic-card widget-transition p-4 rounded-3xl flex flex-col ${className} animate-in fade-in slide-in-from-bottom-2 duration-300`}>
+        <div className={`glass-card widget-transition p-4 rounded-3xl flex flex-col ${className} animate-in fade-in slide-in-from-bottom-2 duration-300`}>
             {/* Header */}
             <div className="flex justify-between items-center mb-4">
                 <div className="flex items-center gap-2">

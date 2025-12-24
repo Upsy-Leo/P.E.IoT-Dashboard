@@ -46,14 +46,14 @@ const WeatherWidget = ({ filter, className = "" }) => {
 
     if (loading && !weather) {
         return (
-            <div className={`neumorphic-card p-5 rounded-3xl flex items-center justify-center h-full ${className}`}>
+            <div className={`glass-card p-5 rounded-3xl flex items-center justify-center h-full ${className}`}>
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent-green"></div>
             </div>
         );
     }
 
     return (
-        <div className={`neumorphic-card widget-transition p-5 rounded-3xl flex flex-col justify-between h-full relative overflow-hidden ${className}`}>
+        <div className={`glass-card widget-transition p-5 rounded-3xl flex flex-col justify-between h-full relative overflow-hidden ${className}`}>
             <div className="flex justify-between items-start">
                 <div>
                     <h2 className="text-base font-black text-white uppercase tracking-tighter">Local Weather</h2>

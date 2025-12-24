@@ -32,7 +32,7 @@ const DigitalPlant = ({ className = "" }) => {
     };
 
     return (
-        <div className={`neumorphic-card widget-transition p-5 rounded-3xl flex flex-col items-center justify-between h-full relative overflow-hidden ${className}`}>
+        <div className={`glass-card widget-transition p-5 rounded-3xl flex flex-col items-center justify-between h-full relative overflow-hidden ${className}`}>
 
             {/* Decor */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-accent-green/5 rounded-full blur-3xl -z-10"></div>
