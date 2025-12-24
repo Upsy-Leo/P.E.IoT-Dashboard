@@ -43,7 +43,7 @@ const MeasureChart = ({ type: initialType = "temperature", filter }) => {
                         <button
                             key={p}
                             onClick={() => setPeriod(p)}
-                            className={`text-[9px] px-2 py-1 rounded-md font-bold transition-all ${period === p ? 'bg-gray-200 text-black' : 'bg-transparent text-gray-500 hover:text-white'}`}
+                            className={`text-[9px] px-3 py-1 rounded-lg font-bold neumorphic-button ${period === p ? 'active bg-gray-600/20' : ''}`}
                         >
                             {p === 'week' ? '1W' : p === 'month' ? '1M' : p === '6months' ? '6M' : p === 'year' ? '1Y' : 'ALL'}
                         </button>
@@ -54,8 +54,7 @@ const MeasureChart = ({ type: initialType = "temperature", filter }) => {
                         <button
                             key={t}
                             onClick={() => toggleType(t)}
-                            className={`text-[9px] px-2 py-1 rounded-lg uppercase font-bold tracking-wider transition-all ${currentType === t ? 'text-black' : 'bg-gray-800 text-gray-400 hover:bg-gray-700'}`}
-                            style={currentType === t ? { backgroundColor: activeColor } : {}}
+                            className={`text-[9px] px-3 py-1 rounded-lg uppercase font-bold tracking-wider neumorphic-button ${currentType === t ? 'accent active' : ''}`}
                         >
                             {t === 'airPollution' ? 'Pollution' : t}
                         </button>

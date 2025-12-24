@@ -56,13 +56,13 @@ function App() {
         <nav className="flex flex-col gap-8">
           <button
             onClick={() => setCurrentPage('dashboard')}
-            className={`text-xl transition-all ${currentPage === 'dashboard' ? 'opacity-100 scale-110' : 'opacity-40 hover:opacity-100'}`}
+            className={`w-12 h-12 rounded-xl text-xl neumorphic-button ${currentPage === 'dashboard' ? 'active' : ''}`}
           >
             📊
           </button>
           <button
             onClick={() => setCurrentPage('admin')}
-            className={`text-xl transition-all ${currentPage === 'admin' ? 'opacity-100 scale-110' : 'opacity-40 hover:opacity-100'}`}
+            className={`w-12 h-12 rounded-xl text-xl neumorphic-button ${currentPage === 'admin' ? 'active' : ''}`}
           >
             ⚙️
           </button>

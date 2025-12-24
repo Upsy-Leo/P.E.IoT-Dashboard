@@ -65,7 +65,7 @@ const SensorInfo = ({ data, onClose, className = "" }) => {
                 </div>
                 <button
                     onClick={onClose}
-                    className="p-1 rounded-lg bg-white/5 hover:bg-white/10 text-gray-500 hover:text-white transition-all"
+                    className="w-7 h-7 rounded-lg neumorphic-button transition-all"
                 >
                     <X size={14} />
                 </button>
@@ -117,7 +117,7 @@ const SensorInfo = ({ data, onClose, className = "" }) => {
                     <button
                         onClick={handleResolve}
                         disabled={isResolving}
-                        className="flex-[2] bg-accent-green hover:bg-green-400 text-black font-black py-2.5 rounded-xl transition-all shadow-lg active:scale-[0.97] disabled:opacity-50 flex items-center justify-center gap-1.5 text-[9px] uppercase"
+                        className="flex-[2] neumorphic-button accent py-2.5 rounded-xl transition-all disabled:opacity-50 flex items-center justify-center gap-1.5 text-[9px] uppercase font-black"
                     >
                         <CheckCircle2 size={12} />
                         Resolve Incident
@@ -127,10 +127,10 @@ const SensorInfo = ({ data, onClose, className = "" }) => {
                         Monitoring Only
                     </div>
                 )}
-                <button className="flex-1 bg-white/5 hover:bg-white/10 text-gray-400 font-bold py-2 rounded-xl text-[8px] uppercase tracking-widest border border-white/5 transition-colors">
+                <button className="flex-1 neumorphic-button py-2 rounded-xl text-[8px] uppercase tracking-widest font-bold">
                     Tools
                 </button>
-                <button className="flex-1 bg-white/5 hover:bg-white/10 text-gray-400 font-bold py-2 rounded-xl text-[8px] uppercase tracking-widest border border-white/5 transition-colors">
+                <button className="flex-1 neumorphic-button py-2 rounded-xl text-[8px] uppercase tracking-widest font-bold">
                     Report
                 </button>
             </div>

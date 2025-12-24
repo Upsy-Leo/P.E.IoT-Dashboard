@@ -227,7 +227,7 @@ const AdminPage = () => {
                                 </div>
                             </div>
 
-                            <button type="submit" className="w-full bg-blue-500 hover:bg-blue-400 text-white font-black uppercase tracking-widest text-[10px] py-3 rounded-2xl transition-all shadow-lg active:scale-[0.98]">
+                            <button type="submit" className="w-full h-12 rounded-2xl neumorphic-button accent !bg-blue-500 !text-white text-[10px] font-black uppercase tracking-widest">
                                 Register Member
                             </button>
                         </form>
@@ -266,7 +266,7 @@ const AdminPage = () => {
                             <button
                                 type="submit"
                                 disabled={!sensorForm.userID}
-                                className="w-full bg-accent-green hover:bg-green-400 text-black font-black uppercase tracking-widest text-[10px] py-3 rounded-2xl transition-all shadow-lg active:scale-[0.98] disabled:opacity-30"
+                                className="w-full h-12 rounded-2xl neumorphic-button accent text-[10px] font-black uppercase tracking-widest disabled:opacity-30"
                             >
                                 Activate Node
                             </button>
@@ -319,7 +319,7 @@ const AdminPage = () => {
                             <button
                                 type="submit"
                                 disabled={!measureForm.sensorID}
-                                className="w-full bg-purple-510 bg-purple-600 hover:bg-purple-500 text-white font-black uppercase tracking-widest text-[10px] py-3 rounded-2xl transition-all shadow-lg active:scale-[0.98] disabled:opacity-30"
+                                className="w-full h-12 rounded-2xl neumorphic-button accent !bg-purple-600 !text-white text-[10px] font-black uppercase tracking-widest disabled:opacity-30"
                             >
                                 Emit Telemetry
                             </button>
@@ -335,7 +335,7 @@ const AdminPage = () => {
                             <p className="text-[10px] text-gray-500 uppercase tracking-widest mt-1">Live Management of System Records</p>
                         </div>
 
-                        <div className="flex bg-black/40 p-1 rounded-2xl border border-white/5 self-start">
+                        <div className="flex bg-black/40 p-1.5 rounded-2xl border border-white/5 self-start gap-1">
                             {['users', 'sensors', 'measures'].map(type => (
                                 <button
                                     key={type}
@@ -343,10 +343,7 @@ const AdminPage = () => {
                                         setSelectedCollection(type);
                                         setEditingId(null);
                                     }}
-                                    className={`px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${selectedCollection === type
-                                        ? 'bg-accent-green text-black shadow-lg scale-105'
-                                        : 'text-gray-500 hover:text-white'
-                                        }`}
+                                    className={`px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest neumorphic-button ${selectedCollection === type ? 'accent active' : ''}`}
                                 >
                                     {type}
                                 </button>
@@ -409,17 +406,17 @@ const AdminPage = () => {
                                                 <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                                     <button
                                                         onClick={() => startEditing(item)}
-                                                        className="p-2 bg-blue-500/10 text-blue-500 hover:bg-blue-500 hover:text-white rounded-lg transition-all"
+                                                        className="w-8 h-8 rounded-lg neumorphic-button text-blue-400"
                                                         title="Edit Entry"
                                                     >
-                                                        <Pencil size={16} />
+                                                        <Pencil size={14} />
                                                     </button>
                                                     <button
                                                         onClick={() => handleDelete(item._id)}
-                                                        className="p-2 bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white rounded-lg transition-all"
+                                                        className="w-8 h-8 rounded-lg neumorphic-button text-red-400"
                                                         title="Delete Entry"
                                                     >
-                                                        <Trash2 size={16} />
+                                                        <Trash2 size={14} />
                                                     </button>
                                                 </div>
                                             )}

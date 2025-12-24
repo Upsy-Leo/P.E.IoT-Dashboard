@@ -90,7 +90,7 @@ const MiniTodo = ({ className = "" }) => {
                 <div className="flex gap-2">
                     <button
                         onClick={() => setIsAdding(!isAdding)}
-                        className="p-1 rounded-lg bg-accent-green/10 text-accent-green hover:bg-accent-green/20 transition-all"
+                        className={`w-7 h-7 rounded-lg neumorphic-button ${isAdding ? 'active' : ''}`}
                     >
                         <Plus size={14} />
                     </button>
@@ -125,7 +125,7 @@ const MiniTodo = ({ className = "" }) => {
                         />
                         <button
                             type="submit"
-                            className="bg-accent-green text-black font-black px-3 h-[32px] rounded-xl text-[9px] hover:bg-green-400 transition-all active:scale-95 shadow-[0_0_10px_rgba(56,229,170,0.15)] shrink-0"
+                            className="neumorphic-button accent h-[32px] px-3 rounded-xl text-[9px] font-black shrink-0"
                         >
                             ADD
                         </button>
@@ -173,7 +173,7 @@ const MiniTodo = ({ className = "" }) => {
 
                                 <button
                                     onClick={() => deleteTodo(todo._id)}
-                                    className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg hover:bg-red-500/20 text-gray-600 hover:text-red-500 transition-all"
+                                    className="opacity-0 group-hover:opacity-100 w-7 h-7 rounded-lg neumorphic-button text-gray-600 hover:text-red-500 transition-all"
                                 >
                                     <Trash2 size={12} />
                                 </button>

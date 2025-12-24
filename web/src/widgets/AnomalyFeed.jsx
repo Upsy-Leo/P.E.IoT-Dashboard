@@ -50,12 +50,8 @@ const AnomalyFeed = ({ filter, onAlertSelect, selectedAlertId }) => {
                     <button
                         key={t.id}
                         onClick={() => setActiveType(t.id)}
-                        className={`flex-1 py-1 px-2 rounded-lg text-[9px] font-bold uppercase transition-all border ${activeType === t.id
-                            ? 'bg-accent-green border-accent-green text-black shadow-[0_0_10px_rgba(46,204,113,0.2)]'
-                            : 'bg-white/5 border-white/5 text-gray-500 hover:bg-white/10'
-                            }`}
+                        className={`flex-1 py-1 px-2 rounded-lg text-[9px] font-bold uppercase neumorphic-button ${activeType === t.id ? 'accent active' : ''}`}
                     >
-                        <span className="mr-1 opacity-70">{t.icon}</span>
                         {t.label}
                     </button>
                 ))}
