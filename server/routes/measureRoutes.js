@@ -111,6 +111,21 @@ router.get('/detail', async (req, res) => {
     }
 });
 
+// Route pour récupérer toutes les mesures
+router.get('/', async (req, res) => {
+    try {
+        const measures = await Measure.find()
+            .populate({
+                path: 'sensorID',
+                populate: { path: 'userID' }
+            })
+            .sort({ creationDate: -1 });
+        res.json(measures);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 // Route pour ajouter une nouvelle mesure
 router.post('/', async (req, res) => {
     try {

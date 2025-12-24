@@ -16,16 +16,17 @@ router.get('/', async (req, res) => {
 // Route pour récupérer le profil de l'utilisateur actuel (Sylvie Martin par défaut pour la démo)
 router.get('/me', async (req, res) => {
     try {
-        let user = await User.findOne({ username: 'Sylvie Martin' });
+        let user = await User.findOne({ location: 'Worldwide', role: 'Operations Manager' });
 
         if (!user) {
             // Création du profil Sylvie si inexistant
             user = new User({
-                username: 'Sylvie Martin',
+                location: 'Worldwide',
                 role: 'Operations Manager',
                 xp: 850,
                 level: 5,
-                location: 'Worldwide'
+                personsInHouse: 1,
+                houseSize: 'medium'
             });
             await user.save();
         }
