@@ -60,7 +60,7 @@ L'interface repose sur un **Design System unique** mêlant **Glassmorphism** (tr
 -   **Plante Digitale** : Widget gamifié qui évolue en fonction de la résolution des incidents.
 -   **Ckecklist Opérations** : Gestionnaire de tâches rapide (`MiniTodo`) pour les actions quotidiennes.
 -   **Feed d'Anomalies** : Liste des alertes en temps réel avec **code couleur sémantique** (Orange = Température, Bleu = Humidité, Vert = Pollution).
--   **Météo Locale** : Widget météo contextuel basé sur la localisation.
+-   **Météo Locale** : Ce widget devait à la base être un widget lecteur de sons d'ambiance ou de musique (se référer à la maquette Figma). Nous avons changé d'avis car nous pension qu'un widget météo contextuel basé sur la localisation serait plus en accord avec le contexte du projet.
 
 ### Page Admin
 -   **Provisioning** : Création manuelle d'Opérateurs, de Capteurs et injection de Mesures de test.
