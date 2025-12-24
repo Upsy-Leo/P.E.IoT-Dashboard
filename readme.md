@@ -85,5 +85,5 @@ L'interface repose sur un **Design System unique** mêlant **Glassmorphism** (tr
 - **Notion (organisation, UX et planning)** :  
   https://www.notion.so/P-E-IoT-IoT-Dashboard-POC-2d1421028bc0800a98c4c7eadde9dd5f?pvs=21
 
-- **Video démo**
+- **Video démo** :
   https://youtu.be/PHsM4ugbu7c
